@@ -1,0 +1,94 @@
+using System;
+
+namespace Roulette
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //set application stuff
+            Console.Title = "Roullete";
+            Console.ForegroundColor = ConsoleColor.Magenta;
+
+            //set var for loop
+            int start, end;
+            start = 0;
+            end = 1;
+
+            while (start != end)
+            {
+                //ask for wager
+                Console.WriteLine("Welcome to Roulette. How much money would you like to wager? ");
+                Console.WriteLine();
+                string moneyWager = Console.ReadLine();
+                int _moneyWager = Convert.ToInt32(moneyWager);
+
+                if (_moneyWager == 0)
+                {
+                    Console.WriteLine("Please enter a valid wager. ");
+                    Console.WriteLine();
+                }
+                if (_moneyWager >= 1)
+                {
+                    Console.WriteLine("Please select two numbers between 1 and 38. ");
+                    Console.WriteLine();
+                    Console.WriteLine("Your first number? ");
+                    // get first number
+                    string firstNum = Console.ReadLine();
+                    // get second number
+                    Console.WriteLine("Your second number? ");
+                    string secondNum = Console.ReadLine();
+
+                    //convert your numbers to ints
+                    int _firstNum = Convert.ToInt32(firstNum);
+                    int _secondNum = Convert.ToInt32(secondNum);
+
+                    //make random numbers for roulette
+                    Random firstWinNum = new Random();
+                    int _firstWinNum = firstWinNum.Next(1, 38);
+                    Random secondWinNum = new Random();
+                    int _secondWinNum = secondWinNum.Next(1, 38);
+                    Random multiplier = new Random();
+                    int _multiplier = multiplier.Next(1, 10);
+
+                    //first num is winner
+                    if (_firstWinNum == _firstNum)
+                    {
+                        int winnings = _multiplier * _moneyWager;
+                        Console.WriteLine("Congratulations your first number: " + _firstNum + " was a winner. You now have " + winnings + " dollars.");
+                        Console.WriteLine();
+                        if (_secondWinNum == _secondNum)
+                        {
+                            winnings = _multiplier * _moneyWager;
+                            Console.WriteLine("Congratulations your second number: " + _secondNum + " was a winner. You now have " + winnings + " dollars.");
+                            Console.WriteLine();
+                        }
+                    }
+                    if (_secondWinNum == _secondNum)
+                    {
+                        int winnings = _multiplier * _moneyWager;
+                        Console.WriteLine("Congratulations your second number: " + _secondNum + " was a winner. You now have " + winnings + " dollars.");
+                        Console.WriteLine();
+                        if (_firstWinNum == _firstNum)
+                        {
+                            winnings = _multiplier * _moneyWager;
+                            Console.WriteLine("Congratulations your first number: " + _secondNum + " was a winner. You now have " + winnings + " dollars.");
+                            Console.WriteLine();
+                        }
+                    }
+                    if (_firstWinNum != _firstNum)
+                    {
+                        Console.WriteLine("Sorry friend, your first number was not a winner. The first number was " + _firstWinNum);
+                        Console.WriteLine();
+                    }if (_secondWinNum != _secondNum)
+                    {
+                        Console.WriteLine("Sorry friend, your second number was not a winner. The second number was " + _secondWinNum);
+                        Console.WriteLine();
+                    }
+                    _moneyWager = 0;
+                    Console.ReadLine();
+                }
+            }
+        }
+    }
+}
